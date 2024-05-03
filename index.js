@@ -3,14 +3,6 @@ const app = express();
 const morgan = require('morgan');
 const cors = require('cors');
 
-app.use(cors());
-app.use(express.static('dist'));
-app.use(express.json());
-
-app.use(morgan('tiny'));
-app.use(morgan(':method :url :status :response-time ms :res[content-length] :POST'));
-morgan.token('POST', (req, res) => JSON.stringify(req.body));
-
 let persons = [
   {
     id: 1,
@@ -33,6 +25,14 @@ let persons = [
     number: '39-23-6423122',
   },
 ];
+
+app.use(cors());
+app.use(express.static('dist'));
+app.use(express.json());
+
+app.use(morgan('tiny'));
+app.use(morgan(':method :url :status :response-time ms :res[content-length] :POST'));
+morgan.token('POST', (req, res) => JSON.stringify(req.body));
 
 app.get('/info', (request, response) => {
   const time = new Date();
