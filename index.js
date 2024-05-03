@@ -26,13 +26,18 @@ let persons = [
   },
 ];
 
-app.use(cors());
 app.use(express.static('dist'));
+
+app.use(cors());
 app.use(express.json());
 
 app.use(morgan('tiny'));
 app.use(morgan(':method :url :status :response-time ms :res[content-length] :POST'));
 morgan.token('POST', (req, res) => JSON.stringify(req.body));
+
+const unknownEndpoint = (request, response) => {
+  response.status(404).send({ error: 'unknown endpoint' });
+};
 
 app.get('/info', (request, response) => {
   const time = new Date();
@@ -95,6 +100,8 @@ app.post('/api/persons', (request, response) => {
     response.status(201).json(newPerson);
   }
 });
+
+app.use(unknownEndpoint);
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
