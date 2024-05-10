@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js",
+    "dev": "nodemon --inspect index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:ui": "rm -rf dist && cd ../phonebookFrontend && npm run build && cp -r dist ../phonebookBackend",
     "deploy:full": "npm run build:ui && git add -A && git commit -m uibuild && git push origin"
@@ -14,7 +14,9 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "mongoose": "^8.3.3",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
