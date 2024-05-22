@@ -19,7 +19,7 @@ personsRouter.get('/:id', (request, response, next) => {
     .catch((error) => next(error));
 });
 
-personsRouter.delete('/:id', (request, response) => {
+personsRouter.delete('/:id', (request, response, next) => {
   Person.findByIdAndDelete(request.params.id)
     .then((result) => {
       response.json(result);
