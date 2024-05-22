@@ -1,15 +1,17 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
+const config = require('../utils/config');
+const logger = require('../utils/logger');
 
-const url = process.env.MONGODB_URI;
+const url = config.MONGODB_URI;
 mongoose.set('strictQuery', false);
 mongoose
   .connect(url)
   .then((result) => {
-    console.log('connected to MongoDB');
+    logger.info('connected to MongoDB');
   })
   .catch((error) => {
-    console.log('error connecting to MongoDB:', error.message);
+    logger.info('error connecting to MongoDB:', error.message);
   });
 
 const personSchema = new mongoose.Schema({
